@@ -7,7 +7,6 @@ class MessagesController < ApplicationController
 
   def create
     @message = Message.new(message_params)
-    binding.pry
     openai_api_call(@message.prompt)
   end
 
