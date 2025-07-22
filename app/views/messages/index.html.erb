@@ -1,6 +1,7 @@
 <div id="thread-controls">
   <button id="new-thread-btn" class="thread-control-btn">+</button>
-</div> 
+  <button id="show-thread-btn" class="thread-control-btn">◻︎</button>
+</div>
 
 <div id="chat-container">
   <div id="messages-list">
@@ -27,3 +28,11 @@
     <%= form.submit '↑', class: "submit-within-textarea rounded-corners" %>
   </div>
 <% end %>
+
+<div id="threads-modal">
+  <div id="threads-modal-content">
+    <button id="close-threads-btn">&times;</button>
+    <h2 class="modal-titele">スレッド一覧</h2>
+    <div id="threads-list"></div>
+  </div>
+</div>
