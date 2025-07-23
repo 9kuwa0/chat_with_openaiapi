@@ -4,7 +4,7 @@ class ChatThreadsController < ApplicationController
     @chat_threads = ChatThread.order(created_at: :desc)
 
     respond_to do |format|
-      format.json { render json: {chat_threads: @chat_threads }}
+      format.json {render json: {chat_threads: @chat_threads}}
       format.html
     end
   end
@@ -13,9 +13,9 @@ class ChatThreadsController < ApplicationController
     @chat_thread = ChatThread.create(title: 'Untitled')
 
     if @chat_thread.persisted?
-      render json: { chat_thread: @chat_thread },  status: :created
+      render json: {chat_thread: @chat_thread}, status: :created
     else
-      render json: { error: @chat_thread.errors.full_messages.join(', ') }, status: :unprocessable_entity
+      render json: {errors: @chat_thread.errors.full_messages}, status: :unprocessable_entity
     end
   end
 
@@ -24,8 +24,13 @@ class ChatThreadsController < ApplicationController
     @message = @chat_thread.messages.build
     
     respond_to do |format|
-      format.json { render json: { chat_thread: @chat_thread } }
-      format.html { render :index }
+      format.json {
+        render json: {
+          chat_thread: @chat_thread,
+          messages: @chat_thread.messages.order(created_at: :asc)
+        }
+      }
+      format.html {render :index}
     end
   end
 end

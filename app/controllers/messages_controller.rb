@@ -13,8 +13,8 @@ class MessagesController < ApplicationController
       @message.response = response_body['choices'][0]['message']['content']
 
       if @chat_thread.messages.count == 0
-        generate_title = generate_title(@message.prompt)
-        @chat_thread.update(title: generate_title)
+        generated_title = generate_title(@message.prompt)
+        @chat_thread.update(title: generated_title)
       end
 
       if @message.save
@@ -23,10 +23,10 @@ class MessagesController < ApplicationController
           thread_title: @chat_thread.title
         }
       else
-        render json: { error: @message.errors.full_messages.join(', ') }, status: :unprocessable_entity
+        render json: {error: @message.errors.full_messages.join(', ')}, status: :unprocessable_entity
       end
     else
-      render json: { error: 'APIリクエストが失敗しました' }, status: :unprocessable_entity
+      render json: {error: 'APIリクエストが失敗しました'}, status: :unprocessable_entity
     end
   end
 
@@ -46,7 +46,7 @@ class MessagesController < ApplicationController
       },
       json: {
         model: "gpt-4o",
-        messages: [{ role: "user", content: prompt }]
+        messages: [{role: "user", content: prompt}]
       }
     )
   end

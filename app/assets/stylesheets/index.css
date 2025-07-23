@@ -137,6 +137,7 @@ textarea:focus {
     max-height: 70vh;
     overflow-y: auto;
     margin-top: 20px;
+    color: #000;
 }
 
 .thread-item {
@@ -225,8 +226,9 @@ textarea:focus {
     font-size: 24px;
 }
 
- .response-text {
+.response-text {
   line-height: 1.6;
+  color: #333;
 }
 
 .response-text h1, .response-text h2, .response-text h3, .response-text h4, .response-text h5, .response-text h6 {
@@ -253,4 +255,8 @@ textarea:focus {
   background-color: #f4f4f4;
   padding: 1em;
   overflow-x: auto;
+}
+
+.prompt-text {
+  color: #333;
 }
