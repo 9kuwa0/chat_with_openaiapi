@@ -1,8 +1,8 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', () => {
   let form = document.getElementById('generation-form');
   let messagesList = document.getElementById('messages-list');
   let newThreadBtn = document.getElementById('new-thread-btn');
-  let showThreadBtn = document.getElementById('show-threads-btn');
+  let showThreadBtn = document.getElementById('show-thread-btn');
   let threadsList = document.getElementById('threads-list');
 
   function handleFormSubmit(e) {
@@ -35,15 +35,18 @@ document.addEventListener('DOMContentLoaded', function() {
   function sendPrompt(formData, token, targetElement) {
     fetch(form.action, {
       method: 'POST',
+      body: formData,
       headers:{
-        'Accept' => 'application/json',
+        'Accept': 'application/json',
         'X-CSRF-Token': token
-      },
-      body: formData
+      }
     })
     .then(response => response.json())
     .then(data => {
       displayResponse(data.response, targetElement);
+      if (data.thread_title) {
+        updateThreadTitleDisplay(data.thread_title);
+      }
     })
     .catch(error => handleAPIError(error, targetElement));
   }
@@ -107,7 +110,7 @@ document.addEventListener('DOMContentLoaded', function() {
     .then(data => {
       history.pushState(null, '', `/chat_threads/${chatThreadId}`);
       hideThreadsModal();
-      updateChatInterface(data.chat_thread, []);
+      updateChatInterface(data.chat_thread, data.messages);
     })
     .catch(error => {
       alert('スレッドの読み込みに失敗しました。もう一度お試しください。');
